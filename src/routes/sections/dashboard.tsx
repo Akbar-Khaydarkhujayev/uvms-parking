@@ -11,11 +11,8 @@ import { AuthGuard } from 'src/auth/guard';
 // ----------------------------------------------------------------------
 
 const CompanyPage = lazy(() => import('src/pages/dashboard/company'));
-const DevicePage = lazy(() => import('src/pages/dashboard/device'));
 const DashboardPage = lazy(() => import('src/pages/dashboard/dashboard'));
-const StatisticsPage = lazy(() => import('src/pages/dashboard/statistics'));
-const PageFive = lazy(() => import('src/pages/dashboard/statistics'));
-const PageSix = lazy(() => import('src/pages/dashboard/six'));
+const MonitoringPage = lazy(() => import('src/pages/dashboard/monitoring'));
 
 // ----------------------------------------------------------------------
 
@@ -29,21 +26,12 @@ const layoutContent = (
 
 export const dashboardRoutes = [
   {
-    path: 'dashboard',
+    path: '',
     element: CONFIG.auth.skip ? <>{layoutContent}</> : <AuthGuard>{layoutContent}</AuthGuard>,
     children: [
       { element: <DashboardPage />, index: true },
       { path: 'companies', element: <CompanyPage /> },
-      { path: 'devices', element: <DevicePage /> },
-      { path: 'statistics', element: <StatisticsPage /> },
-      {
-        path: 'group',
-        children: [
-          { element: <StatisticsPage />, index: true },
-          { path: 'five', element: <PageFive /> },
-          { path: 'six', element: <PageSix /> },
-        ],
-      },
+      { path: 'monitoring', element: <MonitoringPage /> },
     ],
   },
 ];

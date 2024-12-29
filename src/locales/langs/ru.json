@@ -36,5 +36,6 @@
   "user id": "ID пользователя",
   "add device user": "Добавить пользователя устройства",
   "successfully registered": "Регистрация прошла успешно!",
-  "statistics": "Статистика"
+  "statistics": "Статистика",
+  "monitoring": "Мониторинг"
 }

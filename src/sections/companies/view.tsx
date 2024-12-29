@@ -24,7 +24,6 @@ import { useState } from 'react';
 import { useDeleteCompany } from './api/delete';
 import { ConfirmDialog } from 'src/components/custom-dialog';
 import { Scrollbar } from 'src/components/scrollbar';
-import { directions } from '../devices/components/DeviceDialog';
 import { Label } from 'src/components/label';
 
 // ----------------------------------------------------------------------
@@ -209,7 +208,7 @@ function RowItem({
 
       <TableRow>
         <TableCell sx={{ py: 0 }} colSpan={6}>
-          <Collapse in={collapsible.value} timeout="auto" unmountOnExit>
+          {/* <Collapse in={collapsible.value} timeout="auto" unmountOnExit>
             <Paper
               variant="outlined"
               sx={{
@@ -265,7 +264,7 @@ function RowItem({
                 </TableBody>
               </Table>
             </Paper>
-          </Collapse>
+          </Collapse> */}
         </TableCell>
       </TableRow>
 

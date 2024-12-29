@@ -50,16 +50,4 @@ export const endpoints = {
     edit: (id: string, name: string) => `Companys?company_id=${id}&company_name=${name}`,
     stats: 'Stat/companys',
   },
-  device: {
-    list: 'Device/devices',
-    delete: (id: string) => `Device/device?device_id=${id}`,
-    create: 'Device/device',
-    edit: (id: string) => `Device/device?device_id=${id}`,
-    user: {
-      list: 'Device/device/GetUsers',
-      delete: 'Device/device/DeleteUser',
-      create: 'Device/device/addUser',
-      edit: 'Device/device/editUser',
-    },
-  },
 };

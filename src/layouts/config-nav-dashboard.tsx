@@ -47,25 +47,9 @@ export const navData = [
    */
   {
     items: [
-      { title: 'statistics', path: paths.dashboard.statistics, icon: ICONS.analytics },
-      { title: 'dashboard', path: paths.dashboard.root, icon: ICONS.dashboard },
-      { title: 'companies', path: paths.dashboard.companies, icon: ICONS.ecommerce },
-      { title: 'devices', path: paths.dashboard.devices, icon: ICONS.job },
+      { title: 'dashboard', path: paths.root, icon: ICONS.analytics },
+      { title: 'monitoring', path: paths.monitoring, icon: ICONS.dashboard },
+      { title: 'companies', path: paths.companies, icon: ICONS.ecommerce },
     ],
   },
-  // {
-  //   subheader: 'Management',
-  //   items: [
-  //     {
-  //       title: 'Group',
-  //       path: paths.dashboard.group.root,
-  //       icon: ICONS.user,
-  //       children: [
-  //         { title: 'Four', path: paths.dashboard.group.root },
-  //         { title: 'Five', path: paths.dashboard.group.five },
-  //         { title: 'Six', path: paths.dashboard.group.six },
-  //       ],
-  //     },
-  //   ],
-  // },
 ];

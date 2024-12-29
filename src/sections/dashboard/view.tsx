@@ -32,11 +32,10 @@ export function DashboardView() {
     start_time: dayjs().subtract(1, 'day').format('YYYY-MM-DDTHH:mm:ss'),
     end_time: dayjs().format('YYYY-MM-DDTHH:mm:ss'),
   });
-  console.log(companies);
+
   const headLabel = [
     { id: 'order', label: '№' },
     { id: 'name', label: t('company name') },
-    { id: 'devices', label: t('total devices') },
     { id: 'enters', label: t('enters') },
     { id: 'exits', label: t('exits') },
   ];

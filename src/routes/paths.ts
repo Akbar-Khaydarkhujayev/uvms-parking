@@ -2,15 +2,14 @@
 
 const ROOTS = {
   AUTH: '/auth',
-  DASHBOARD: '/dashboard',
 };
 
 // ----------------------------------------------------------------------
 
 export const paths = {
-  faqs: '/faqs',
-  minimalStore: 'https://mui.com/store/items/minimal-dashboard/',
-  // AUTH
+  root: '/',
+  monitoring: '/monitoring',
+  companies: '/companies',
   auth: {
     signUp: `${ROOTS.AUTH}/jwt/sign-up`,
     signIn: `${ROOTS.AUTH}/jwt/sign-in`,
@@ -40,18 +39,6 @@ export const paths = {
       signUp: `${ROOTS.AUTH}/supabase/sign-up`,
       updatePassword: `${ROOTS.AUTH}/supabase/update-password`,
       resetPassword: `${ROOTS.AUTH}/supabase/reset-password`,
-    },
-  },
-  // DASHBOARD
-  dashboard: {
-    root: ROOTS.DASHBOARD,
-    statistics: `${ROOTS.DASHBOARD}/statistics`,
-    companies: `${ROOTS.DASHBOARD}/companies`,
-    devices: `${ROOTS.DASHBOARD}/devices`,
-    group: {
-      root: `${ROOTS.DASHBOARD}/group`,
-      five: `${ROOTS.DASHBOARD}/group/five`,
-      six: `${ROOTS.DASHBOARD}/group/six`,
     },
   },
 };

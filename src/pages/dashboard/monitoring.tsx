@@ -1,21 +1,22 @@
 import { Helmet } from 'react-helmet-async';
 
 import { CONFIG } from 'src/config-global';
+import { useTranslate } from 'src/locales';
 
-import { StatisticsView } from 'src/sections/statistics/view';
+import { MonitoringView } from 'src/sections/monitoring/view';
 
 // ----------------------------------------------------------------------
 
-const metadata = { title: `Page five | Dashboard - ${CONFIG.appName}` };
-
 export default function Page() {
+  const { t } = useTranslate();
+
   return (
     <>
       <Helmet>
-        <title> {metadata.title}</title>
+        <title> {t('monitoring')}</title>
       </Helmet>
 
-      <StatisticsView />
+      <MonitoringView />
     </>
   );
 }
