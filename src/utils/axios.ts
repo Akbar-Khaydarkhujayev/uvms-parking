@@ -44,10 +44,17 @@ export const endpoints = {
     signUp: 'User/register',
   },
   companies: {
-    list: 'Companys',
-    delete: (id: string) => `Companys?company_id=${id}`,
-    create: (name: string) => `Companys?company_name=${name}`,
-    edit: (id: string, name: string) => `Companys?company_id=${id}&company_name=${name}`,
+    list: 'companys',
+    delete: (id: string) => `companys?company_id=${id}`,
+    create: (name: string) => `companys?company_name=${name}`,
+    edit: (id: string, name: string) => `companys?company_id=${id}&company_name=${name}`,
     stats: 'Stat/companys',
   },
+  device: {
+    list: 'device/devices',
+    delete: (id: string) => `device/device?device_id=${id}`,
+    create: 'device/device',
+    edit: (id: string) => `device/device?device_id=${id}`,
+  },
+  camera: 'cameras',
 };

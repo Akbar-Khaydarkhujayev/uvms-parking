@@ -7,6 +7,7 @@ import { DashboardLayout } from 'src/layouts/dashboard';
 import { LoadingScreen } from 'src/components/loading-screen';
 
 import { AuthGuard } from 'src/auth/guard';
+import DevicePage from 'src/pages/dashboard/device';
 
 // ----------------------------------------------------------------------
 
@@ -32,6 +33,7 @@ export const dashboardRoutes = [
       { element: <DashboardPage />, index: true },
       { path: 'companies', element: <CompanyPage /> },
       { path: 'monitoring', element: <MonitoringPage /> },
+      { path: 'devices', element: <DevicePage /> },
     ],
   },
 ];

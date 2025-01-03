@@ -51,10 +51,7 @@ export function CompaniesView() {
     { id: 'username', label: t('username') },
     { id: 'password', label: t('password') },
     { id: 'created', label: t('created at') },
-    { id: 'ip', label: 'IP' },
-    { id: 'port', label: t('port') },
     { id: 'status', label: t('status'), align: 'center' },
-    { id: 'direction', label: t('direction'), align: 'right' },
   ];
 
   return (
@@ -208,7 +205,7 @@ function RowItem({
 
       <TableRow>
         <TableCell sx={{ py: 0 }} colSpan={6}>
-          {/* <Collapse in={collapsible.value} timeout="auto" unmountOnExit>
+          <Collapse in={collapsible.value} timeout="auto" unmountOnExit>
             <Paper
               variant="outlined"
               sx={{
@@ -231,19 +228,11 @@ function RowItem({
                       <TableCell>{device.userName}</TableCell>
                       <TableCell>{device.password}</TableCell>
                       <TableCell>{fDate(device.created_At)}</TableCell>
-                      <TableCell>{device.ip || '-'}</TableCell>
-                      <TableCell>{device.port || '-'}</TableCell>
                       <TableCell align="center">
                         {device.status}
                         <Label variant="filled" color={device.status ? 'success' : 'error'}>
                           {device.status}
                         </Label>
-                      </TableCell>
-                      <TableCell align="right">
-                        {t(
-                          directions.find((direction) => direction.value === device.direction)
-                            ?.label || ''
-                        )}
                       </TableCell>
                     </TableRow>
                   ))}
@@ -264,7 +253,7 @@ function RowItem({
                 </TableBody>
               </Table>
             </Paper>
-          </Collapse> */}
+          </Collapse>
         </TableCell>
       </TableRow>
 

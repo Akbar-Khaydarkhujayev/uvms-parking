@@ -11,6 +11,8 @@ interface ISocketData {
 }
 
 const useWebSocket = (token: string) => {
+  if (!token) return { data: null, socket: null };
+
   const [data, setData] = useState<ISocketData[]>([]);
   const [socket, setSocket] = useState<WebSocket | null>(null);
   const reconnectTimeout = useRef<NodeJS.Timeout | null>(null);
@@ -22,7 +24,7 @@ const useWebSocket = (token: string) => {
     let pingInterval: NodeJS.Timeout | null = null;
 
     const connectWebSocket = () => {
-      ws = new WebSocket(`ws://api.uvmsoft.uz/ws/connect?token=${token}`);
+      ws = new WebSocket(`ws://apiparking.uvmsoft.uz/ws/connect?token=${token}`);
 
       ws.onopen = () => {
         console.log('WebSocket connected');

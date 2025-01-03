@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axiosInstance, { endpoints } from 'src/utils/axios';
-import { FormSchemaType } from '../components/formSchema';
+import { FormSchemaType } from '../../components/formSchema';
 import { toast } from 'src/components/snackbar';
 import { useTranslate } from 'src/locales';
 

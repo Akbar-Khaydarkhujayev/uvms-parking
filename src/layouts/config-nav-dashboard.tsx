@@ -50,6 +50,7 @@ export const navData = [
       { title: 'dashboard', path: paths.root, icon: ICONS.analytics },
       { title: 'monitoring', path: paths.monitoring, icon: ICONS.dashboard },
       { title: 'companies', path: paths.companies, icon: ICONS.ecommerce },
+      { title: 'devices', path: paths.devices, icon: ICONS.course },
     ],
   },
 ];

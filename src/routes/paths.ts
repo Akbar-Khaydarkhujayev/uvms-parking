@@ -10,6 +10,7 @@ export const paths = {
   root: '/',
   monitoring: '/monitoring',
   companies: '/companies',
+  devices: '/devices',
   auth: {
     signUp: `${ROOTS.AUTH}/jwt/sign-up`,
     signIn: `${ROOTS.AUTH}/jwt/sign-in`,

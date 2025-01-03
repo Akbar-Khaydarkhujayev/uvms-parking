@@ -9,19 +9,14 @@ import { Form, Field } from 'src/components/hook-form';
 import { LoadingButton } from '@mui/lab';
 import { FormSchema, FormSchemaType } from './formSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useCreateDevice } from '../api/create';
-import { IDevice } from '../api/getList';
-import { useEditDevice } from '../api/edit';
+import { useCreateDevice } from '../api/device/create';
+import { IDevice } from '../api/device/getList';
+import { useEditDevice } from '../api/device/edit';
 import { useEffect } from 'react';
 import { MenuItem } from '@mui/material';
 import { useGetCompanies } from 'src/sections/companies/api/getList';
 
 // ----------------------------------------------------------------------
-
-const directions = [
-  { value: 1, label: 'enter' },
-  { value: 2, label: 'exit' },
-];
 
 interface ICompanyDialogProps {
   onClose: () => void;
@@ -35,7 +30,6 @@ const defaultValue = {
   dev_Username: '',
   dev_Password: '',
   company_ID: '',
-  direction: 0,
 };
 
 export function DeviceDialog({ onClose, open, device, setDevice }: ICompanyDialogProps) {
@@ -69,7 +63,6 @@ export function DeviceDialog({ onClose, open, device, setDevice }: ICompanyDialo
         dev_Username: device.userName,
         dev_Password: device.password,
         company_ID: device.company_id,
-        direction: device.direction,
       });
     else reset(defaultValue);
   }, [device, reset]);
@@ -92,13 +85,6 @@ export function DeviceDialog({ onClose, open, device, setDevice }: ICompanyDialo
             {companies?.map((company) => (
               <MenuItem key={company.id} value={company.id}>
                 {company.name}
-              </MenuItem>
-            ))}
-          </Field.Select>
-          <Field.Select margin="normal" fullWidth name="direction" label={t('direction')}>
-            {directions.map((direction) => (
-              <MenuItem key={direction.value} value={direction.value}>
-                {t(direction.label)}
               </MenuItem>
             ))}
           </Field.Select>
