@@ -9,13 +9,9 @@ import { Form, Field } from 'src/components/hook-form';
 import { LoadingButton } from '@mui/lab';
 import { cameraDefaultValue, CameraFormSchema, CameraFormSchemaType } from './formSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEditDevice } from '../api/device/edit';
 import { useEffect } from 'react';
 import { useGetCompanies } from 'src/sections/companies/api/getList';
 import { ICamera } from '../api/camera/list';
-import { getImage } from '../api/getImage';
-import { UploadAvatar } from 'src/components/upload';
-import dayjs from 'dayjs';
 import { useCreateDeviceUser } from '../api/camera/create';
 import { useEditDeviceUser } from '../api/camera/edit';
 import { MenuItem } from '@mui/material';
@@ -26,6 +22,11 @@ import { useGetDevices } from '../api/device/getList';
 const directions = [
   { value: 1, label: 'enter' },
   { value: 2, label: 'exit' },
+];
+
+const barrierIndex = [
+  { value: 1, label: 'barrier 1' },
+  { value: 2, label: 'barrier 2' },
 ];
 
 interface ICompanyDialogProps {
@@ -70,7 +71,7 @@ export function CameraDialog({ onClose, open, device_id, camera, setCamera }: IC
   const onSubmit = handleSubmit(
     async (data) => {
       if (data?.id) edit({ data, params: { camera_id: data.id } });
-      else create({ data, params: { device_id } });
+      else create({ data });
     },
     (err) => console.log(err)
   );
@@ -89,6 +90,13 @@ export function CameraDialog({ onClose, open, device_id, camera, setCamera }: IC
             {directions.map((direction) => (
               <MenuItem key={direction.value} value={direction.value}>
                 {t(direction.label)}
+              </MenuItem>
+            ))}
+          </Field.Select>
+          <Field.Select margin="normal" fullWidth name="barier_ID" label={t('barrier')}>
+            {barrierIndex.map((index) => (
+              <MenuItem key={index.value} value={index.value}>
+                {t(index.label)}
               </MenuItem>
             ))}
           </Field.Select>

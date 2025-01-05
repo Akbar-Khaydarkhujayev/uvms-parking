@@ -4,16 +4,10 @@ import { CameraFormSchemaType, FormSchemaType } from '../../components/formSchem
 import { toast } from 'src/components/snackbar';
 import { useTranslate } from 'src/locales';
 
-interface IParams {
-  device_id: string;
-}
+interface IParams {}
 
-export const createDeviceUser = (data: CameraFormSchemaType, params: IParams) => {
-  return axiosInstance
-    .post(endpoints.camera, data, {
-      params,
-    })
-    .then((res) => res.data);
+export const createDeviceUser = (data: CameraFormSchemaType) => {
+  return axiosInstance.post(endpoints.camera, data).then((res) => res.data);
 };
 
 export const useCreateDeviceUser = (handleClose: () => void) => {
@@ -21,8 +15,7 @@ export const useCreateDeviceUser = (handleClose: () => void) => {
   const { t } = useTranslate();
 
   return useMutation({
-    mutationFn: ({ data, params }: { data: CameraFormSchemaType; params: IParams }) =>
-      createDeviceUser(data, params),
+    mutationFn: ({ data }: { data: CameraFormSchemaType }) => createDeviceUser(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['cameras'] });
       toast.success(t('successfully created'));

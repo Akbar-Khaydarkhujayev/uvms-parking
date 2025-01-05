@@ -11,6 +11,7 @@ export interface ICamera {
   status: boolean;
   company_ID: string;
   created_At: string;
+  barier_ID: number;
 }
 
 interface IParams {

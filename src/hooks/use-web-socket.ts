@@ -2,18 +2,19 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useEffect, useRef, useState } from 'react';
 
 interface ISocketData {
-  DeviceID: string;
-  UserUD: string;
-  UserName: string;
-  FaceImage: string;
-  fullImage: string;
-  The_date: string;
+  IP: string;
+  palte_image: string;
+  car_image: string;
+  Direction: number;
+  Barier_ID: number;
 }
 
 const useWebSocket = (token: string) => {
   if (!token) return { data: null, socket: null };
 
-  const [data, setData] = useState<ISocketData[]>([]);
+  const [data, setData] = useState<
+    [ISocketData | null, ISocketData | null, ISocketData | null, ISocketData | null]
+  >([null, null, null, null]);
   const [socket, setSocket] = useState<WebSocket | null>(null);
   const reconnectTimeout = useRef<NodeJS.Timeout | null>(null);
 
@@ -40,13 +41,25 @@ const useWebSocket = (token: string) => {
       ws.onmessage = (event) => {
         if (event.data === 'device') queryClient.invalidateQueries({ queryKey: ['device'] });
         else if (event.data === 'company') queryClient.invalidateQueries({ queryKey: ['company'] });
-        else if (event.data === 'company-stats')
-          queryClient.invalidateQueries({ queryKey: ['company-stats'] });
+        else if (event.data === 'table') queryClient.invalidateQueries({ queryKey: ['records'] });
+        else if (event.data === 'count')
+          queryClient.invalidateQueries({ queryKey: ['monitoring-stats'] });
         else if (event.data === 'pong') {
         } else {
           setData((prev) => {
-            const newData = [JSON.parse(event.data), ...prev];
-            return newData.slice(0, 20);
+            const newItem = JSON.parse(event.data);
+
+            if (newItem.Barier_ID === 1 && newItem.Direction === 1) {
+              prev[0] = newItem;
+            } else if (newItem.Barier_ID === 1 && newItem.Direction === 2) {
+              prev[1] = newItem;
+            } else if (newItem.Barier_ID === 2 && newItem.Direction === 1) {
+              prev[2] = newItem;
+            } else if (newItem.Barier_ID === 2 && newItem.Direction === 2) {
+              prev[3] = newItem;
+            }
+
+            return prev;
           });
         }
       };

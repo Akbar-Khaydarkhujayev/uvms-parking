@@ -447,8 +447,8 @@ function CameraRowItem({
   };
 
   const handleDelete = () => {
-    deleteMutation(row.id);
     popover.onClose();
+    deleteMutation(row.id);
   };
 
   return (

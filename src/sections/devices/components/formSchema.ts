@@ -37,10 +37,11 @@ export const CameraFormSchema = z.object({
     }),
   username: z.string().min(1, { message: 'Username is required!' }),
   password: z.string().min(1, { message: 'Password is required!' }),
-  direction: z.number().min(0, { message: 'Direction is required!' }),
+  direction: z.number().min(1, { message: 'Direction is required!' }),
   status: z.boolean(),
   company_ID: z.string().min(1, { message: 'Company ID is required!' }),
   device_ID: z.string().min(1, { message: 'Device ID is required!' }),
+  barier_ID: z.number().min(1, { message: 'Barrier ID is required!' }),
 });
 
 export const cameraDefaultValue = {
@@ -49,6 +50,7 @@ export const cameraDefaultValue = {
   username: '',
   password: '',
   direction: 0,
+  barier_ID: 0,
   status: true,
   company_ID: '',
   device_ID: '',

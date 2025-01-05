@@ -42,5 +42,17 @@
   "enter time": "Время входа",
   "out time": "Время выхода",
   "price": "Цена",
-  "time": "Время"
+  "time": "Время",
+  "min": "Мин",
+  "total cars in": "Всего машин на въехало",
+  "total cars out": "Всего машин на выехало",
+  "total price": "Общая цена",
+  "plate": "Номер",
+  "open": "Открыть",
+  "close": "Закрыть",
+  "Barier closed successfully!": "Шлагбаум успешно закрыт!",
+  "Barier opened successfully!": "Шлагбаум успешно открыт!",
+  "barrier": "Шлагбаум",
+  "barrier 1": "Шлагбаум 1",
+  "barrier 2": "Шлагбаум 2"
 }

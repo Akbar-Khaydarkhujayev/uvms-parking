@@ -56,5 +56,8 @@ export const endpoints = {
     create: 'device/device',
     edit: (id: string) => `device/device?device_id=${id}`,
   },
+  records: 'stat/car_list',
+  stats: 'stat/counts',
   camera: 'cameras',
+  barrier: 'cameras/barier',
 };

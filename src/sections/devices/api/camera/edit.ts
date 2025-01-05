@@ -20,7 +20,7 @@ export const useEditDeviceUser = (handleClose: () => void) => {
     mutationFn: ({ data, params }: { data: CameraFormSchemaType; params: IParams }) =>
       editDeviceUser(data, params),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['device-users'] });
+      queryClient.invalidateQueries({ queryKey: ['cameras'] });
       toast.success(t('successfully updated'));
       handleClose();
     },

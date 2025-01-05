@@ -1,63 +1,110 @@
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 
-import { varAlpha } from 'src/theme/styles';
 import { DashboardContent } from 'src/layouts/dashboard';
 import { useTranslate } from 'src/locales';
-import { Avatar, Button, Grid, Table, TableBody, TableCell, TableRow } from '@mui/material';
+import {
+  Avatar,
+  Button,
+  Grid,
+  Table,
+  TableBody,
+  TableCell,
+  TableRow,
+  Typography,
+} from '@mui/material';
 import { Scrollbar } from 'src/components/scrollbar';
 import { TableHeadCustom, TableNoData } from 'src/components/table';
-import { ICompany } from '../companies/api/getList';
 import { Label } from 'src/components/label';
+import notFoundImg from 'src/assets/images/not-fount.png';
+import { useGetRecords } from './api/getRecords';
+import dayjs from 'dayjs';
+import { useGetStats } from './api/getStats';
+import { useGetDevices } from '../devices/api/device/getList';
+import { useGetCameras } from '../devices/api/camera/list';
+import { useToggleBarrier } from './api/toggleBarrier';
+import img from './plate.jpg';
+import img1 from './car.jpg';
 import useWebSocket from 'src/hooks/use-web-socket';
 import { useAuthContext } from 'src/auth/hooks';
-import img from './plate.png';
 
 // ----------------------------------------------------------------------
 
-const companies = [
-  {
-    id: '1',
-    enter: '10:00',
-    out: '11:00',
-    price: '100',
-    time: '1:00',
-  },
-  {
-    id: '2',
-    enter: '10:00',
-    out: '11:00',
-    price: '100',
-    time: '1:00',
-  },
-  {
-    id: '3',
-    enter: '10:00',
-    out: '11:00',
-    price: '100',
-    time: '1:00',
-  },
-];
+const directions: { [key: number]: string } = {
+  1: 'enter',
+  2: 'exit',
+};
 
 export function MonitoringView() {
   const { t } = useTranslate();
   const { user } = useAuthContext();
 
+  const formatCurrency = (value: number) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'decimal',
+      useGrouping: true,
+    })
+      .format(value)
+      .replace(/,/g, ' ');
+  };
+
   const headLabel = [
     { id: 'order', label: '№' },
-    { id: 'enter', label: t('enter time'), align: 'right' },
-    { id: 'out', label: t('out time'), align: 'right' },
+    { id: 'plate', label: t('plate') },
+    { id: 'enter', label: t('enter time') },
+    { id: 'out', label: t('out time') },
     { id: 'price', label: t('price'), align: 'right' },
     { id: 'time', label: t('time'), align: 'right' },
   ];
-  const { data } = useWebSocket(user?.token);
+
+  const { data: records } = useGetRecords();
+  const { data: stats } = useGetStats();
+
+  const { data: devices } = useGetDevices({
+    pageNumber: 1,
+    pageSize: 1,
+    data: '',
+  });
+
+  const { data: cameras } = useGetCameras({
+    device_id: devices?.data?.[0]?.device_ID,
+    company_id: devices?.data?.[0]?.company_id,
+    data: '',
+  });
+
+  const { mutate: toggleBarrier } = useToggleBarrier();
+
+  const { data } = useWebSocket(user?.accessToken);
 
   return (
     <DashboardContent maxWidth="xl" sx={{ pb: 0, pt: 2 }}>
+      <Box mb={2}>
+        <Grid container spacing={4} height="82px">
+          <Grid item xs={3}>
+            <Label variant="outlined" sx={{ width: 1, height: 1, fontSize: 15 }}>
+              {t('company name')}: {stats?.[0]?.company_name}
+            </Label>
+          </Grid>
+          <Grid item xs={3}>
+            <Label variant="outlined" sx={{ width: 1, height: 1, fontSize: 15 }}>
+              {t('total cars in')}: {stats?.[0]?.entry_cars}
+            </Label>
+          </Grid>
+          <Grid item xs={3}>
+            <Label variant="outlined" sx={{ width: 1, height: 1, fontSize: 15 }}>
+              {t('total cars out')}: {stats?.[0]?.exit_cars}
+            </Label>
+          </Grid>
+          <Grid item xs={3}>
+            <Label variant="outlined" sx={{ width: 1, height: 1, fontSize: 15 }}>
+              {t('total price')}: {formatCurrency(stats?.[0]?.total_price ?? 0)} TJS
+            </Label>
+          </Grid>
+        </Grid>
+      </Box>
       <Box>
-        <Grid container spacing={2} height="calc(100vh - 140px)">
+        <Grid container spacing={2} height="calc(100vh - 200px)">
           <Grid item container xs={5} spacing={2} sx={{ maxHeight: '100%' }}>
-            <Grid item xs={12} sx={{ height: 0.6 }}>
+            <Grid item xs={12} sx={{ height: 0.8 }}>
               <Box
                 sx={{
                   borderRadius: 3,
@@ -78,25 +125,33 @@ export function MonitoringView() {
                     <TableHeadCustom headLabel={headLabel} />
 
                     <TableBody>
-                      {companies.map((company, index) => (
+                      {records?.map((record, index) => (
                         <TableRow key={index} hover sx={{ cursor: 'pointer' }}>
                           <TableCell>{index + 1}</TableCell>
 
-                          <TableCell align="right">{company.enter}</TableCell>
+                          <TableCell>{record.plate}</TableCell>
 
-                          <TableCell align="right">{company.out}</TableCell>
+                          <TableCell>
+                            {dayjs(record.enter_time).format('MM/DD/YYYY HH:mm')}
+                          </TableCell>
+
+                          <TableCell>
+                            {dayjs(record.exit_time).format('MM/DD/YYYY HH:mm')}
+                          </TableCell>
 
                           <TableCell align="right">
                             <Label variant="outlined" color="success">
-                              {company.price} {t('sum')}
+                              {formatCurrency(record.price)} TJS
                             </Label>
                           </TableCell>
 
-                          <TableCell align="right">{company.time}</TableCell>
+                          <TableCell align="right">
+                            {record.time} {t('min')}
+                          </TableCell>
                         </TableRow>
                       ))}
 
-                      {(!companies || companies?.length === 0) && (
+                      {(!records || records?.length === 0) && (
                         <TableNoData
                           notFound
                           sx={{
@@ -114,146 +169,201 @@ export function MonitoringView() {
                 </Scrollbar>
               </Box>
             </Grid>
-            <Grid item container xs={12} height={0.4} spacing={2}>
-              <Grid item xs={4} spacing={2}>
-                <Label
-                  variant="outlined"
-                  color="success"
-                  sx={{
-                    height: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  Camera 1 - Online
-                </Label>
+            <Grid item container xs={12} height={0.2} spacing={1}>
+              <Grid item container xs={6} spacing={1}>
+                <Grid item xs={12}>
+                  <Typography textAlign="center" fontWeight="500">
+                    {t('barrier')} 1
+                  </Typography>
+                </Grid>
+                <Grid item container xs={12} spacing={1}>
+                  {cameras
+                    ?.filter((camera) => camera.barier_ID === 1 && camera.direction === 1)
+                    .map((camera) => (
+                      <>
+                        <Grid item xs={6}>
+                          <Label
+                            variant="outlined"
+                            color={camera.status ? 'success' : 'error'}
+                            sx={{
+                              height: '100%',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            {camera.ip} - {camera.status ? t('online') : t('offline')}
+                          </Label>
+                        </Grid>
+                        <Grid
+                          item
+                          xs={6}
+                          sx={{
+                            mb: 0.3,
+                          }}
+                        >
+                          <Button
+                            variant="contained"
+                            color="success"
+                            disabled={!camera.status}
+                            sx={{ width: 1, height: 1 }}
+                            onClick={() =>
+                              toggleBarrier({
+                                data: { ip: camera.ip, action: 1 },
+                                params: { device_id: devices?.data?.[0]?.device_ID },
+                              })
+                            }
+                          >
+                            {t('open')}
+                          </Button>
+                        </Grid>
+                      </>
+                    ))}
+                </Grid>
+                <Grid item container xs={12} spacing={1}>
+                  {cameras
+                    ?.filter((camera) => camera.barier_ID === 2 && camera.direction === 1)
+                    .map((camera) => (
+                      <>
+                        <Grid item xs={6}>
+                          <Label
+                            variant="outlined"
+                            color={camera.status ? 'success' : 'error'}
+                            sx={{
+                              height: '100%',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            {camera.ip} - {camera.status ? t('online') : t('offline')}
+                          </Label>
+                        </Grid>
+                        <Grid
+                          item
+                          xs={6}
+                          sx={{
+                            mb: 0.3,
+                          }}
+                        >
+                          <Button
+                            variant="contained"
+                            color="error"
+                            sx={{ width: 1, height: 1 }}
+                            disabled={!camera.status}
+                            onClick={() =>
+                              toggleBarrier({
+                                data: { ip: camera.ip, action: 2 },
+                                params: { device_id: devices?.data?.[0]?.device_ID },
+                              })
+                            }
+                          >
+                            {t('close')}
+                          </Button>
+                        </Grid>
+                      </>
+                    ))}
+                </Grid>
               </Grid>
-              <Grid item xs={4} spacing={2}>
-                <Label
-                  variant="outlined"
-                  color="success"
-                  sx={{
-                    height: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  Camera 1 - Online
-                </Label>
-              </Grid>
-              <Grid item xs={4} spacing={2}>
-                <Button variant="contained" color="success" sx={{ width: 1, height: 1 }}>
-                  Shlakbaum 1 ochish
-                </Button>
-              </Grid>
-
-              <Grid item xs={4} spacing={2}>
-                <Label
-                  variant="outlined"
-                  color="error"
-                  sx={{
-                    height: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  Camera 1 - Offline
-                </Label>
-              </Grid>
-              <Grid item xs={4} spacing={2}>
-                <Label
-                  variant="outlined"
-                  color="error"
-                  sx={{
-                    height: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  Camera 1 - Offline
-                </Label>
-              </Grid>
-              <Grid item xs={4} spacing={2}>
-                <Button variant="contained" color="success" sx={{ width: 1, height: 1 }}>
-                  Shlakbaum 1 ochish
-                </Button>
-              </Grid>
-
-              <Grid item xs={4} spacing={2}>
-                <Label
-                  variant="outlined"
-                  color="success"
-                  sx={{
-                    height: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  Camera 1 - Offline
-                </Label>
-              </Grid>
-              <Grid item xs={4} spacing={2}>
-                <Label
-                  variant="outlined"
-                  color="success"
-                  sx={{
-                    height: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  Camera 1 - Offline
-                </Label>
-              </Grid>
-              <Grid item xs={4} spacing={2}>
-                <Button variant="contained" color="error" sx={{ width: 1, height: 1 }}>
-                  Shlakbaum 1 ochish
-                </Button>
-              </Grid>
-
-              <Grid item xs={4} spacing={2}>
-                <Label
-                  variant="outlined"
-                  color="error"
-                  sx={{
-                    height: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  Camera 1 - Offline
-                </Label>
-              </Grid>
-              <Grid item xs={4} spacing={2}>
-                <Label
-                  variant="outlined"
-                  color="error"
-                  sx={{
-                    height: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  Camera 1 - Offline
-                </Label>
-              </Grid>
-              <Grid item xs={4} spacing={2}>
-                <Button variant="contained" color="error" sx={{ width: 1, height: 1 }}>
-                  Shlakbaum 1 ochish
-                </Button>
+              <Grid item container xs={6} spacing={1}>
+                <Grid item xs={12}>
+                  <Typography textAlign="center" fontWeight="500">
+                    {t('barrier')} 2
+                  </Typography>
+                </Grid>
+                <Grid item container xs={12} spacing={1}>
+                  {cameras
+                    ?.filter((camera) => camera.barier_ID === 1 && camera.direction === 2)
+                    .map((camera) => (
+                      <>
+                        <Grid item xs={6}>
+                          <Label
+                            variant="outlined"
+                            color={camera.status ? 'success' : 'error'}
+                            sx={{
+                              height: '100%',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            {camera.ip} - {camera.status ? t('online') : t('offline')}
+                          </Label>
+                        </Grid>
+                        <Grid
+                          item
+                          xs={6}
+                          sx={{
+                            mb: 0.3,
+                          }}
+                        >
+                          <Button
+                            variant="contained"
+                            color="success"
+                            disabled={!camera.status}
+                            sx={{ width: 1, height: 1 }}
+                            onClick={() =>
+                              toggleBarrier({
+                                data: { ip: camera.ip, action: 1 },
+                                params: { device_id: devices?.data?.[0]?.device_ID },
+                              })
+                            }
+                          >
+                            {t('open')}
+                          </Button>
+                        </Grid>
+                      </>
+                    ))}
+                </Grid>
+                <Grid item container xs={12} spacing={1}>
+                  {cameras
+                    ?.filter((camera) => camera.barier_ID === 2 && camera.direction === 2)
+                    .map((camera) => (
+                      <>
+                        <Grid item xs={6}>
+                          <Label
+                            variant="outlined"
+                            color={camera.status ? 'success' : 'error'}
+                            sx={{
+                              height: '100%',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            {camera.ip} - {camera.status ? t('online') : t('offline')}
+                          </Label>
+                        </Grid>
+                        <Grid
+                          item
+                          xs={6}
+                          sx={{
+                            mb: 0.3,
+                          }}
+                        >
+                          <Button
+                            variant="contained"
+                            color="error"
+                            sx={{ width: 1, height: 1 }}
+                            disabled={!camera.status}
+                            onClick={() =>
+                              toggleBarrier({
+                                data: { ip: camera.ip, action: 2 },
+                                params: { device_id: devices?.data?.[0]?.device_ID },
+                              })
+                            }
+                          >
+                            {t('close')}
+                          </Button>
+                        </Grid>
+                      </>
+                    ))}
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
           <Grid item container xs={7} spacing={2} sx={{ height: '100%', maxHeight: '100%' }}>
-            {[...Array(4)].map((_, index) => (
+            {data?.map((item, index) => (
               <Grid item xs={6} key={index} sx={{ height: '50%', maxHeight: '50%' }}>
                 <Box
                   sx={{
@@ -265,39 +375,69 @@ export function MonitoringView() {
                     overflow: 'hidden',
                   }}
                 >
-                  <Box
-                    sx={{
-                      flexGrow: 1,
-                      width: '100%',
-                      overflow: 'hidden',
-                    }}
-                  >
-                    <img
-                      src={img}
-                      alt={`Image 1 - ${index + 1}`}
-                      style={{
-                        width: '100%',
-                        objectFit: 'cover',
-                      }}
-                    />
-                  </Box>
-                  <Box
-                    sx={{
-                      width: '100%',
-                      aspectRatio: '16/9',
-                      overflow: 'hidden',
-                    }}
-                  >
-                    <img
-                      src="https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                      alt={`Image 2 - ${index + 1}`}
-                      style={{
+                  <Typography textAlign="center" fontWeight="bold">
+                    {t('barrier')} {item?.Barier_ID} | {t('direction')}:{' '}
+                    {t(directions[item?.Direction ?? 1])}
+                  </Typography>
+                  {!item ? (
+                    <Box
+                      sx={{
                         width: '100%',
                         height: '100%',
-                        objectFit: 'cover',
+                        borderTopLeftRadius: 10,
+                        borderTopRightRadius: 10,
+                        overflow: 'hidden',
                       }}
-                    />
-                  </Box>
+                    >
+                      <Avatar
+                        variant="square"
+                        src={notFoundImg}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                        }}
+                      />
+                    </Box>
+                  ) : (
+                    <>
+                      <Box
+                        sx={{
+                          flexGrow: 1,
+                          width: '100%',
+                          overflow: 'hidden',
+                          borderTopLeftRadius: 10,
+                          borderTopRightRadius: 10,
+                        }}
+                      >
+                        <Avatar
+                          variant="square"
+                          src={`data:image/png;base64,${item.palte_image}`}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                          }}
+                        />
+                      </Box>
+                      <Box
+                        sx={{
+                          width: '100%',
+                          aspectRatio: '16/9',
+                          overflow: 'hidden',
+                        }}
+                      >
+                        <Avatar
+                          variant="square"
+                          src={`data:image/png;base64,${item.car_image}`}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                          }}
+                        />
+                      </Box>
+                    </>
+                  )}
                 </Box>
               </Grid>
             ))}

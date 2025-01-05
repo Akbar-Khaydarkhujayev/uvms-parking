@@ -20,7 +20,7 @@ export const useDeleteCamera = () => {
   return useMutation({
     mutationFn: deleteCamera,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['device'] });
+      queryClient.invalidateQueries({ queryKey: ['cameras'] });
       toast.success(t('successfully deleted'));
     },
     onError: (error) => {

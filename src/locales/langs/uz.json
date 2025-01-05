@@ -42,5 +42,17 @@
   "enter time": "Kirish vaqti",
   "out time": "Chiqish vaqti",
   "price": "Narxi",
-  "time": "Vaqt"
+  "time": "Vaqt",
+  "min": "Min",
+  "total cars in": "Kirgan mashinalar soni",
+  "total cars out": "Chiqqan mashinalar soni",
+  "total price": "Jami narx",
+  "plate": "Nomer",
+  "open": "Ochish",
+  "close": "Yopish",
+  "Barier closed successfully!": "Shlagbaum muvaffaqiyatli yopildi!",
+  "Barier opened successfully!": "Shlagbaum muvaffaqiyatli ochildi!",
+  "barier": "Shlagbaum",
+  "barrier 1": "Shlagbaum 1",
+  "barrier 2": "Shlagbaum 2"
 }
