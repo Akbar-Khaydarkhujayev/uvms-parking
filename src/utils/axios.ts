@@ -60,4 +60,9 @@ export const endpoints = {
   stats: 'stat/counts',
   camera: 'cameras',
   barrier: 'cameras/barier',
+  logs: 'log_cars',
+  user: {
+    plate: 'payment/car',
+    pay: 'payment/pay',
+  },
 };

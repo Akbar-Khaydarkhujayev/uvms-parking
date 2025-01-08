@@ -51,7 +51,7 @@ export function SimpleLayout({ sx, children, header, content }: SimpleLayoutProp
               <Box display="flex" alignItems="center" gap={{ xs: 1, sm: 1.5 }}>
                 {/* -- Help link -- */}
                 <Link
-                  href={paths.faqs}
+                  href="#"
                   component={RouterLink}
                   color="inherit"
                   sx={{ typography: 'subtitle2' }}

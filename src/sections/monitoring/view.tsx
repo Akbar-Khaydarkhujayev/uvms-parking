@@ -26,6 +26,7 @@ import img from './plate.jpg';
 import img1 from './car.jpg';
 import useWebSocket from 'src/hooks/use-web-socket';
 import { useAuthContext } from 'src/auth/hooks';
+import { formatCurrency } from 'src/utils/format-number';
 
 // ----------------------------------------------------------------------
 
@@ -37,15 +38,6 @@ const directions: { [key: number]: string } = {
 export function MonitoringView() {
   const { t } = useTranslate();
   const { user } = useAuthContext();
-
-  const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'decimal',
-      useGrouping: true,
-    })
-      .format(value)
-      .replace(/,/g, ' ');
-  };
 
   const headLabel = [
     { id: 'order', label: '№' },

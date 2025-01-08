@@ -104,3 +104,12 @@ export function fData(inputValue: InputNumberValue) {
 
   return fm;
 }
+
+export function formatCurrency(value: number) {
+  return new Intl.NumberFormat('en-US', {
+    style: 'decimal',
+    useGrouping: true,
+  })
+    .format(value)
+    .replace(/,/g, ' ');
+}

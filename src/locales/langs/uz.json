@@ -9,6 +9,7 @@
   "no data": "Ma'lumot yo'q",
   "cancel": "Bekor qilish",
   "create company": "Kompaniya yaratish",
+  "successfully found": "Muvaffaqiyatli topildi!",
   "successfully created": "Muvaffaqiyatli yaratildi!",
   "successfully updated": "Muvaffaqiyatli yangilandi!",
   "successfully deleted": "Muvaffaqiyatli o'chirildi!",
@@ -54,5 +55,11 @@
   "Barier opened successfully!": "Shlagbaum muvaffaqiyatli ochildi!",
   "barier": "Shlagbaum",
   "barrier 1": "Shlagbaum 1",
-  "barrier 2": "Shlagbaum 2"
+  "barrier 2": "Shlagbaum 2",
+  "car logs": "Mashina loglari",
+  "camera ip": "Kamera IPsi",
+  "payment": "To'lov",
+  "plate required": "Mashina raqamini kiriting",
+  "car plate": "Mashina raqami",
+  "pay": "To'lash"
 }

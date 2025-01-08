@@ -26,7 +26,7 @@ export function DashboardView() {
   const { t } = useTranslate();
   const { user } = useAuthContext();
 
-  const { data } = useWebSocket(user?.accessToken);
+  // const { data } = undefined;
 
   const { data: companies } = useGetCompanyStats({
     start_time: dayjs().subtract(1, 'day').format('YYYY-MM-DDTHH:mm:ss'),
@@ -124,7 +124,7 @@ export function DashboardView() {
               }}
             >
               <Scrollbar sx={{ maxHeight: '100%' }}>
-                {data?.map((item, index) => (
+                {/* {data?.map((item, index) => (
                   <Card key={index} sx={{ p: 2, mb: 2 }}>
                     <Box display="flex" gap={2} mb={2}>
                       <Avatar
@@ -149,7 +149,7 @@ export function DashboardView() {
                       {fDateTime(item.The_date)}
                     </Box>
                   </Card>
-                ))}
+                ))} */}
               </Scrollbar>
             </Box>
           </Grid>

@@ -5,6 +5,7 @@ import { CONFIG } from 'src/config-global';
 import { authRoutes } from './auth';
 import { mainRoutes } from './main';
 import { dashboardRoutes } from './dashboard';
+import { userRoutes } from './user';
 
 // ----------------------------------------------------------------------
 
@@ -14,6 +15,10 @@ export function Router() {
       path: '/',
       element: <Navigate to={CONFIG.auth.redirectPath} replace />,
     },
+
+    // User
+
+    ...userRoutes,
 
     // Auth
     ...authRoutes,

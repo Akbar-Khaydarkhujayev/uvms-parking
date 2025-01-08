@@ -9,6 +9,7 @@
   "no data": "Нет данных",
   "cancel": "Отмена",
   "create company": "Создать компанию",
+  "successfully found": "Успешно найдено!",
   "successfully created": "Успешно создано!",
   "successfully updated": "Успешно изменено!",
   "successfully deleted": "Успешно удалено!",
@@ -54,5 +55,11 @@
   "Barier opened successfully!": "Шлагбаум успешно открыт!",
   "barrier": "Шлагбаум",
   "barrier 1": "Шлагбаум 1",
-  "barrier 2": "Шлагбаум 2"
+  "barrier 2": "Шлагбаум 2",
+  "car logs": "Логи машин",
+  "camera ip": "IP камеры",
+  "payment": "Оплата",
+  "plate required": "Введите номер машины",
+  "car plate": "Номер машины",
+  "pay": "Оплатить"
 }

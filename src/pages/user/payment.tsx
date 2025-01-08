@@ -2,20 +2,20 @@ import { Helmet } from 'react-helmet-async';
 
 import { useTranslate } from 'src/locales';
 
-import { CarLogsView } from 'src/sections/carLogs/view';
+import { PaymentView } from 'src/sections/user/view';
 
 // ----------------------------------------------------------------------
 
-export default function CarLogsPage() {
+export default function PaymentPage() {
   const { t } = useTranslate();
 
   return (
     <>
       <Helmet>
-        <title> {t('dashboard')}</title>
+        <title> {t('payment')}</title>
       </Helmet>
 
-      <CarLogsView />
+      <PaymentView />
     </>
   );
 }

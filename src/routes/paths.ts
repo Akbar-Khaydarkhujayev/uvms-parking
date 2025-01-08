@@ -9,6 +9,7 @@ const ROOTS = {
 export const paths = {
   root: '/',
   monitoring: '/monitoring',
+  carLogs: '/car-logs',
   companies: '/companies',
   devices: '/devices',
   auth: {

@@ -1,8 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import { AuthSplitLayout } from 'src/layouts/auth-split';
-
 import { SplashScreen } from 'src/components/loading-screen';
 
 import { GuestGuard } from 'src/auth/guard';

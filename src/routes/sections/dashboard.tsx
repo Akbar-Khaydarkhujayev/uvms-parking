@@ -8,11 +8,11 @@ import { LoadingScreen } from 'src/components/loading-screen';
 
 import { AuthGuard } from 'src/auth/guard';
 import DevicePage from 'src/pages/dashboard/device';
+import CarLogsPage from 'src/pages/dashboard/dashboard';
 
 // ----------------------------------------------------------------------
 
 const CompanyPage = lazy(() => import('src/pages/dashboard/company'));
-const DashboardPage = lazy(() => import('src/pages/dashboard/dashboard'));
 const MonitoringPage = lazy(() => import('src/pages/dashboard/monitoring'));
 
 // ----------------------------------------------------------------------
@@ -30,9 +30,9 @@ export const dashboardRoutes = [
     path: '',
     element: CONFIG.auth.skip ? <>{layoutContent}</> : <AuthGuard>{layoutContent}</AuthGuard>,
     children: [
-      { element: <DashboardPage />, index: true },
+      { element: <MonitoringPage />, index: true },
       { path: 'companies', element: <CompanyPage /> },
-      { path: 'monitoring', element: <MonitoringPage /> },
+      { path: 'car-logs', element: <CarLogsPage /> },
       { path: 'devices', element: <DevicePage /> },
     ],
   },
