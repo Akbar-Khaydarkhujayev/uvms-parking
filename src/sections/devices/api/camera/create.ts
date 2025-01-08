@@ -1,14 +1,15 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+
 import axiosInstance, { endpoints } from 'src/utils/axios';
-import { CameraFormSchemaType, FormSchemaType } from '../../components/formSchema';
-import { toast } from 'src/components/snackbar';
+
 import { useTranslate } from 'src/locales';
 
-interface IParams {}
+import { toast } from 'src/components/snackbar';
 
-export const createDeviceUser = (data: CameraFormSchemaType) => {
-  return axiosInstance.post(endpoints.camera, data).then((res) => res.data);
-};
+import type { CameraFormSchemaType } from '../../components/formSchema';
+
+export const createDeviceUser = (data: CameraFormSchemaType) =>
+  axiosInstance.post(endpoints.camera, data).then((res) => res.data);
 
 export const useCreateDeviceUser = (handleClose: () => void) => {
   const queryClient = useQueryClient();

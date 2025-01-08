@@ -1,30 +1,24 @@
-import Box from '@mui/material/Box';
-import Table from '@mui/material/Table';
-import TableRow from '@mui/material/TableRow';
-import TableCell from '@mui/material/TableCell';
-import TableBody from '@mui/material/TableBody';
+import dayjs from 'dayjs';
 
-import { TableHeadCustom, TableNoData } from 'src/components/table';
-import { DashboardContent } from 'src/layouts/dashboard';
-import { Card, Grid, Paper, Typography } from '@mui/material';
-import { useTranslate } from 'src/locales';
-import { ICompanyStats, useGetCompanyStats } from './api/getList';
-import { Scrollbar } from 'src/components/scrollbar';
+import { Box, Grid, Table, TableRow, TableBody, TableCell, Typography } from '@mui/material';
+
 import { fNumber } from 'src/utils/format-number';
+
+import { useTranslate } from 'src/locales';
+import { DashboardContent } from 'src/layouts/dashboard';
+
 import { Label } from 'src/components/label';
+import { Scrollbar } from 'src/components/scrollbar';
+import { TableNoData, TableHeadCustom } from 'src/components/table';
+
 import { CompanyBarChart } from './components/CompaniesBarChart';
 import { CompaniesLineChart } from './components/CompaniesLineChart';
-import { Avatar } from '@mui/material';
-import { useAuthContext } from 'src/auth/hooks';
-import useWebSocket from 'src/hooks/use-web-socket';
-import { fDateTime } from 'src/utils/format-time';
-import dayjs from 'dayjs';
+import { type ICompanyStats, useGetCompanyStats } from './api/getList';
 
 // ----------------------------------------------------------------------
 
 export function DashboardView() {
   const { t } = useTranslate();
-  const { user } = useAuthContext();
 
   // const { data } = undefined;
 
@@ -166,28 +160,26 @@ type RowItemProps = {
 
 function RowItem({ row, order }: RowItemProps) {
   return (
-    <>
-      <TableRow hover sx={{ cursor: 'pointer' }}>
-        <TableCell>
-          <Typography>{order}</Typography>
-        </TableCell>
+    <TableRow hover sx={{ cursor: 'pointer' }}>
+      <TableCell>
+        <Typography>{order}</Typography>
+      </TableCell>
 
-        <TableCell>{row.companyName}</TableCell>
+      <TableCell>{row.companyName}</TableCell>
 
-        <TableCell>{fNumber(row.company_TotalDevices)}</TableCell>
+      <TableCell>{fNumber(row.company_TotalDevices)}</TableCell>
 
-        <TableCell>
-          <Label variant="outlined" color="success">
-            {fNumber(row.total_Enter)}
-          </Label>
-        </TableCell>
+      <TableCell>
+        <Label variant="outlined" color="success">
+          {fNumber(row.total_Enter)}
+        </Label>
+      </TableCell>
 
-        <TableCell>
-          <Label variant="outlined" color="error">
-            {fNumber(row.total_Exit)}
-          </Label>
-        </TableCell>
-      </TableRow>
-    </>
+      <TableCell>
+        <Label variant="outlined" color="error">
+          {fNumber(row.total_Exit)}
+        </Label>
+      </TableCell>
+    </TableRow>
   );
 }

@@ -7,31 +7,28 @@ import { useTheme } from '@mui/material/styles';
 import { iconButtonClasses } from '@mui/material/IconButton';
 
 import { useBoolean } from 'src/hooks/use-boolean';
+import useWebSocket from 'src/hooks/use-web-socket';
 
-import { _contacts, _notifications } from 'src/_mock';
+import { allLangs } from 'src/locales';
 
 import { Logo } from 'src/components/logo';
 import { useSettingsContext } from 'src/components/settings';
-import { allLangs } from 'src/locales';
+
+import { useAuthContext } from 'src/auth/hooks';
 
 import { Main } from './main';
 import { NavMobile } from './nav-mobile';
 import { layoutClasses } from '../classes';
 import { NavVertical } from './nav-vertical';
 import { NavHorizontal } from './nav-horizontal';
-import { _account } from '../config-nav-account';
-import { _workspaces } from '../config-nav-workspace';
+import ThemeButton from '../components/theme-button';
 import { MenuButton } from '../components/menu-button';
 import { LayoutSection } from '../core/layout-section';
 import { HeaderSection } from '../core/header-section';
 import { StyledDivider, useNavColorVars } from './styles';
-import { LanguagePopover } from '../components/language-popover';
-// import { WorkspacesPopover } from '../components/workspaces-popover';
-import { navData as dashboardNavData } from '../config-nav-dashboard';
 import { AccountPopover } from '../components/account-popover';
-import { useAuthContext } from 'src/auth/hooks';
-import useWebSocket from 'src/hooks/use-web-socket';
-import ThemeButton from '../components/theme-button';
+import { LanguagePopover } from '../components/language-popover';
+import { navData as dashboardNavData } from '../config-nav-dashboard';
 
 // ----------------------------------------------------------------------
 
@@ -65,7 +62,7 @@ export function DashboardLayout({ sx, children, header, data }: DashboardLayoutP
   const isNavHorizontal = settings.navLayout === 'horizontal';
   const isNavVertical = isNavMini || settings.navLayout === 'vertical';
 
-  const {} = useWebSocket(user?.accessToken);
+  useWebSocket(user?.accessToken);
 
   return (
     <LayoutSection

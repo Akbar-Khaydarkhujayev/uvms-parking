@@ -1,11 +1,13 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+
 import axiosInstance, { endpoints } from 'src/utils/axios';
-import { toast } from 'src/components/snackbar';
+
 import { useTranslate } from 'src/locales';
 
-export const deleteCompany = (id: string) => {
-  return axiosInstance.delete(endpoints.companies.delete(id)).then((res) => res.data);
-};
+import { toast } from 'src/components/snackbar';
+
+export const deleteCompany = (id: string) =>
+  axiosInstance.delete(endpoints.companies.delete(id)).then((res) => res.data);
 
 export const useDeleteCompany = () => {
   const queryClient = useQueryClient();

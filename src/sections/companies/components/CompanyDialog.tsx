@@ -1,18 +1,23 @@
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+import { LoadingButton } from '@mui/lab';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
+
 import { useTranslate } from 'src/locales';
-import { useForm } from 'react-hook-form';
+
 import { Form, Field } from 'src/components/hook-form';
-import { LoadingButton } from '@mui/lab';
-import { FormSchema, FormSchemaType } from './formSchema';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useCreateCompany } from '../api/create';
-import { ICompany } from '../api/getList';
+
 import { useEditCompany } from '../api/edit';
-import { useEffect } from 'react';
+import { useCreateCompany } from '../api/create';
+import { FormSchema, type FormSchemaType } from './formSchema';
+
+import type { ICompany } from '../api/getList';
 
 // ----------------------------------------------------------------------
 

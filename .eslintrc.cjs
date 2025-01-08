@@ -30,6 +30,7 @@ module.exports = {
     camelcase: 0,
     'no-console': 0,
     'no-unused-vars': 0,
+    'import/no-cycle': 0,
     'no-nested-ternary': 0,
     'no-param-reassign': 0,
     'no-underscore-dangle': 0,

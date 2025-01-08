@@ -1,3 +1,4 @@
+import type { UserType } from 'src/auth/types';
 import type { IconButtonProps } from '@mui/material/IconButton';
 
 import Box from '@mui/material/Box';
@@ -10,7 +11,6 @@ import { useMockedUser } from 'src/auth/hooks';
 
 import { AccountButton } from './account-button';
 import { SignOutButton } from './sign-out-button';
-import { UserType } from 'src/auth/types';
 
 // ----------------------------------------------------------------------
 

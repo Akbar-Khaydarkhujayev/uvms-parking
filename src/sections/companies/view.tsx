@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import Divider from '@mui/material/Divider';
@@ -8,23 +10,25 @@ import TableCell from '@mui/material/TableCell';
 import TableBody from '@mui/material/TableBody';
 import IconButton from '@mui/material/IconButton';
 import ListItemText from '@mui/material/ListItemText';
+import { Paper, Button, Collapse, Typography } from '@mui/material';
+
+import { useBoolean } from 'src/hooks/use-boolean';
 
 import { fDate } from 'src/utils/format-time';
 
-import { Iconify } from 'src/components/iconify';
-import { TableHeadCustom, TableNoData } from 'src/components/table';
-import { usePopover, CustomPopover } from 'src/components/custom-popover';
-import { DashboardContent } from 'src/layouts/dashboard';
-import { Button, Collapse, Paper, Typography } from '@mui/material';
 import { useTranslate } from 'src/locales';
-import { ICompany, useGetCompanies } from './api/getList';
-import { useBoolean } from 'src/hooks/use-boolean';
-import { CompanyDialog } from './components/CompanyDialog';
-import { useState } from 'react';
-import { useDeleteCompany } from './api/delete';
-import { ConfirmDialog } from 'src/components/custom-dialog';
-import { Scrollbar } from 'src/components/scrollbar';
+import { DashboardContent } from 'src/layouts/dashboard';
+
 import { Label } from 'src/components/label';
+import { Iconify } from 'src/components/iconify';
+import { Scrollbar } from 'src/components/scrollbar';
+import { ConfirmDialog } from 'src/components/custom-dialog';
+import { TableNoData, TableHeadCustom } from 'src/components/table';
+import { usePopover, CustomPopover } from 'src/components/custom-popover';
+
+import { useDeleteCompany } from './api/delete';
+import { CompanyDialog } from './components/CompanyDialog';
+import { type ICompany, useGetCompanies } from './api/getList';
 
 // ----------------------------------------------------------------------
 
@@ -99,10 +103,10 @@ export function CompaniesView() {
             <TableHeadCustom headLabel={tableHead} />
 
             <TableBody>
-              {companies?.map((company, index) => (
+              {companies?.map((item, index) => (
                 <RowItem
-                  key={company.id}
-                  row={company}
+                  key={item.id}
+                  row={item}
                   order={index + 1}
                   openDialog={companiesDialog.onTrue}
                   setCompany={setCompany}

@@ -1,22 +1,25 @@
+import { useState } from 'react';
+
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import TableBody from '@mui/material/TableBody';
-import ListItemText from '@mui/material/ListItemText';
+import { TextField, Pagination, Typography, InputAdornment } from '@mui/material';
 
-import { fDate, fDateTime } from 'src/utils/format-time';
+import { useDebounce } from 'src/hooks/use-debounce';
+
+import { fDateTime } from 'src/utils/format-time';
+import { formatCurrency } from 'src/utils/format-number';
+
+import { useTranslate } from 'src/locales';
+import { DashboardContent } from 'src/layouts/dashboard';
 
 import { Iconify } from 'src/components/iconify';
-import { TableHeadCustom, TableNoData } from 'src/components/table';
-import { DashboardContent } from 'src/layouts/dashboard';
-import { InputAdornment, Pagination, TextField, Typography } from '@mui/material';
-import { useTranslate } from 'src/locales';
 import { Scrollbar } from 'src/components/scrollbar';
-import { useState } from 'react';
-import { ILog, useGetLogs } from './api/getList';
-import { useDebounce } from 'src/hooks/use-debounce';
-import { formatCurrency } from 'src/utils/format-number';
+import { TableNoData, TableHeadCustom } from 'src/components/table';
+
+import { type ILog, useGetLogs } from './api/getList';
 
 // ----------------------------------------------------------------------
 
@@ -30,7 +33,7 @@ export function CarLogsView() {
 
   const { data: logs } = useGetLogs({
     pageNumber: page,
-    pageSize: pageSize,
+    pageSize,
     data: deviceDebouncedQuery,
   });
   console.log(logs);

@@ -1,12 +1,15 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+
 import axiosInstance, { endpoints } from 'src/utils/axios';
-import { FormSchemaType } from '../components/formSchema';
-import { toast } from 'src/components/snackbar';
+
 import { useTranslate } from 'src/locales';
 
-export const createCompany = async (data: FormSchemaType) => {
-  return axiosInstance.post(endpoints.companies.create(data.company_name));
-};
+import { toast } from 'src/components/snackbar';
+
+import type { FormSchemaType } from '../components/formSchema';
+
+export const createCompany = async (data: FormSchemaType) =>
+  axiosInstance.post(endpoints.companies.create(data.company_name));
 
 export const useCreateCompany = (handleClose: () => void) => {
   const queryClient = useQueryClient();
