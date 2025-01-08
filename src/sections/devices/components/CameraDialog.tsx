@@ -1,21 +1,27 @@
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+import { LoadingButton } from '@mui/lab';
+import { MenuItem } from '@mui/material';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
+
 import { useTranslate } from 'src/locales';
-import { useForm } from 'react-hook-form';
+
 import { Form, Field } from 'src/components/hook-form';
-import { LoadingButton } from '@mui/lab';
-import { cameraDefaultValue, CameraFormSchema, CameraFormSchemaType } from './formSchema';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect } from 'react';
+
 import { useGetCompanies } from 'src/sections/companies/api/getList';
-import { ICamera } from '../api/camera/list';
-import { useCreateDeviceUser } from '../api/camera/create';
-import { useEditDeviceUser } from '../api/camera/edit';
-import { MenuItem } from '@mui/material';
+
 import { useGetDevices } from '../api/device/getList';
+import { useEditDeviceUser } from '../api/camera/edit';
+import { useCreateDeviceUser } from '../api/camera/create';
+import { CameraFormSchema, cameraDefaultValue, type CameraFormSchemaType } from './formSchema';
+
+import type { ICamera } from '../api/camera/list';
 
 // ----------------------------------------------------------------------
 

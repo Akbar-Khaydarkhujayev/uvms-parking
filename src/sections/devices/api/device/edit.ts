@@ -1,12 +1,15 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+
 import axiosInstance, { endpoints } from 'src/utils/axios';
-import { FormSchemaType } from '../../components/formSchema';
-import { toast } from 'src/components/snackbar';
+
 import { useTranslate } from 'src/locales';
 
-export const editDevice = (data: FormSchemaType) => {
-  return axiosInstance.put(endpoints.device.edit(data.device_id!), data);
-};
+import { toast } from 'src/components/snackbar';
+
+import type { FormSchemaType } from '../../components/formSchema';
+
+export const editDevice = (data: FormSchemaType) =>
+  axiosInstance.put(endpoints.device.edit(data.device_id!), data);
 
 export const useEditDevice = (handleClose: () => void) => {
   const queryClient = useQueryClient();

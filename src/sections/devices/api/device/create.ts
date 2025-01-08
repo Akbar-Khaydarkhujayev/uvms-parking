@@ -1,12 +1,15 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+
 import axiosInstance, { endpoints } from 'src/utils/axios';
-import { FormSchemaType } from '../../components/formSchema';
-import { toast } from 'src/components/snackbar';
+
 import { useTranslate } from 'src/locales';
 
-export const createDevice = (data: FormSchemaType) => {
-  return axiosInstance.post(endpoints.device.create, data).then((res) => res.data);
-};
+import { toast } from 'src/components/snackbar';
+
+import type { FormSchemaType } from '../../components/formSchema';
+
+export const createDevice = (data: FormSchemaType) =>
+  axiosInstance.post(endpoints.device.create, data).then((res) => res.data);
 
 export const useCreateDevice = (handleClose: () => void) => {
   const queryClient = useQueryClient();

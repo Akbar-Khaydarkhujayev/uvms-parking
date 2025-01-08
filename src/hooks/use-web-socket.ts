@@ -1,5 +1,5 @@
+import { useRef, useState, useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
-import { useEffect, useRef, useState } from 'react';
 
 interface ISocketData {
   IP: string;
@@ -7,14 +7,14 @@ interface ISocketData {
   car_image: string;
   Direction: number;
   Barier_ID: number;
+  Plate_Text: string;
 }
 
 const useWebSocket = (token: string) => {
-  if (!token) return { data: null, socket: null };
-
   const [data, setData] = useState<
     [ISocketData | null, ISocketData | null, ISocketData | null, ISocketData | null]
-  >([null, null, null, null]);
+  >(JSON.parse(localStorage.getItem('socket-data') ?? '[null,null,null,null]'));
+
   const [socket, setSocket] = useState<WebSocket | null>(null);
   const reconnectTimeout = useRef<NodeJS.Timeout | null>(null);
 
@@ -45,6 +45,7 @@ const useWebSocket = (token: string) => {
         else if (event.data === 'count')
           queryClient.invalidateQueries({ queryKey: ['monitoring-stats'] });
         else if (event.data === 'pong') {
+          console.log('WebSocket pong');
         } else {
           setData((prev) => {
             const newItem = JSON.parse(event.data);
@@ -58,6 +59,8 @@ const useWebSocket = (token: string) => {
             } else if (newItem.Barier_ID === 2 && newItem.Direction === 2) {
               prev[3] = newItem;
             }
+
+            localStorage.setItem('socket-data', JSON.stringify(prev));
 
             return prev;
           });
@@ -106,7 +109,7 @@ const useWebSocket = (token: string) => {
         reconnectTimeout.current = null;
       }
     };
-  }, [token]);
+  }, [token, queryClient]);
 
   return { data, socket };
 };

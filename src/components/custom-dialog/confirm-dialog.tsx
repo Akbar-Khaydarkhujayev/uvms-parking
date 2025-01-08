@@ -4,8 +4,9 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 
-import type { ConfirmDialogProps } from './types';
 import { useTranslate } from 'src/locales';
+
+import type { ConfirmDialogProps } from './types';
 
 // ----------------------------------------------------------------------
 

@@ -1,20 +1,26 @@
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+import { MenuItem } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
+
 import { useTranslate } from 'src/locales';
-import { useForm } from 'react-hook-form';
+
 import { Form, Field } from 'src/components/hook-form';
-import { LoadingButton } from '@mui/lab';
-import { FormSchema, FormSchemaType } from './formSchema';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useCreateDevice } from '../api/device/create';
-import { IDevice } from '../api/device/getList';
-import { useEditDevice } from '../api/device/edit';
-import { useEffect } from 'react';
-import { MenuItem } from '@mui/material';
+
 import { useGetCompanies } from 'src/sections/companies/api/getList';
+
+import { useEditDevice } from '../api/device/edit';
+import { useCreateDevice } from '../api/device/create';
+import { FormSchema, type FormSchemaType } from './formSchema';
+
+import type { IDevice } from '../api/device/getList';
 
 // ----------------------------------------------------------------------
 

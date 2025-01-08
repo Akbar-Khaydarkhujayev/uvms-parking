@@ -1,30 +1,36 @@
-import Box from '@mui/material/Box';
+import dayjs from 'dayjs';
 
-import { DashboardContent } from 'src/layouts/dashboard';
-import { useTranslate } from 'src/locales';
 import {
-  Avatar,
-  Button,
+  Box,
   Grid,
   Table,
+  Avatar,
+  Button,
+  TableRow,
   TableBody,
   TableCell,
-  TableRow,
   Typography,
 } from '@mui/material';
-import { Scrollbar } from 'src/components/scrollbar';
-import { TableHeadCustom, TableNoData } from 'src/components/table';
-import { Label } from 'src/components/label';
-import { useGetRecords } from './api/getRecords';
-import dayjs from 'dayjs';
-import { useGetStats } from './api/getStats';
-import { useGetDevices } from '../devices/api/device/getList';
-import { useGetCameras } from '../devices/api/camera/list';
-import { useToggleBarrier } from './api/toggleBarrier';
+
 import useWebSocket from 'src/hooks/use-web-socket';
-import { useAuthContext } from 'src/auth/hooks';
+
 import { formatCurrency } from 'src/utils/format-number';
+
 import { CONFIG } from 'src/config-global';
+import { useTranslate } from 'src/locales';
+import { DashboardContent } from 'src/layouts/dashboard';
+
+import { Label } from 'src/components/label';
+import { Scrollbar } from 'src/components/scrollbar';
+import { TableNoData, TableHeadCustom } from 'src/components/table';
+
+import { useAuthContext } from 'src/auth/hooks';
+
+import { useGetStats } from './api/getStats';
+import { useGetRecords } from './api/getRecords';
+import { useToggleBarrier } from './api/toggleBarrier';
+import { useGetCameras } from '../devices/api/camera/list';
+import { useGetDevices } from '../devices/api/device/getList';
 
 // ----------------------------------------------------------------------
 
@@ -171,7 +177,7 @@ export function MonitoringView() {
                     ?.filter((camera) => camera.barier_ID === 1 && camera.direction === 1)
                     .map((camera) => (
                       <>
-                        <Grid item xs={6}>
+                        <Grid key={camera.ip + camera.created_At} item xs={6}>
                           <Label
                             variant="outlined"
                             color={camera.status ? 'success' : 'error'}
@@ -215,7 +221,7 @@ export function MonitoringView() {
                     ?.filter((camera) => camera.barier_ID === 2 && camera.direction === 1)
                     .map((camera) => (
                       <>
-                        <Grid item xs={6}>
+                        <Grid key={camera.ip + camera.created_At} item xs={6}>
                           <Label
                             variant="outlined"
                             color={camera.status ? 'success' : 'error'}
@@ -266,7 +272,7 @@ export function MonitoringView() {
                     ?.filter((camera) => camera.barier_ID === 1 && camera.direction === 2)
                     .map((camera) => (
                       <>
-                        <Grid item xs={6}>
+                        <Grid key={camera.ip + camera.created_At} item xs={6}>
                           <Label
                             variant="outlined"
                             color={camera.status ? 'success' : 'error'}
@@ -310,7 +316,7 @@ export function MonitoringView() {
                     ?.filter((camera) => camera.barier_ID === 2 && camera.direction === 2)
                     .map((camera) => (
                       <>
-                        <Grid item xs={6}>
+                        <Grid key={camera.ip + camera.created_At} item xs={6}>
                           <Label
                             variant="outlined"
                             color={camera.status ? 'success' : 'error'}
@@ -365,10 +371,15 @@ export function MonitoringView() {
                     overflow: 'hidden',
                   }}
                 >
-                  <Typography textAlign="center" fontWeight="bold">
-                    {t('barrier')} {index < 2 ? 1 : 2} | {t('direction')}:{' '}
-                    {t(directions[index % 2 ? 2 : 1])}
-                  </Typography>
+                  <Box display="flex" justifyContent="space-between" px={2}>
+                    <Typography textAlign="center" fontWeight="bold">
+                      {t('barrier')} {index < 2 ? 1 : 2} | {t('direction')}:{' '}
+                      {t(directions[index % 2 ? 2 : 1])}
+                    </Typography>
+                    <Typography textAlign="center" fontWeight="bold">
+                      {item?.Plate_Text}
+                    </Typography>
+                  </Box>
                   {!item ? (
                     <Box
                       sx={{

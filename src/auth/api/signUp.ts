@@ -1,9 +1,11 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { SignUpSchemaType } from '../view/jwt';
-import axiosInstance, { endpoints } from 'src/utils/axios';
 import { toast } from 'sonner';
-import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
+import { useTranslation } from 'react-i18next';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+
+import axiosInstance, { endpoints } from 'src/utils/axios';
+
+import type { SignUpSchemaType } from '../view/jwt';
 
 const signUp = (data: SignUpSchemaType) =>
   axiosInstance.post(endpoints.auth.signUp, data).then((res) => res.data);

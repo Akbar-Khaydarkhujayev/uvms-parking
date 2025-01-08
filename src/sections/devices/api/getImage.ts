@@ -16,11 +16,12 @@ export const getImage = async (user_index: number, base64 = false) => {
     return URL.createObjectURL(response.data);
   } catch (error) {
     console.error('Error fetching image:', error);
+    return null;
   }
 };
 
-const convertBlobToBase64 = (blob: Blob): Promise<string> => {
-  return new Promise((resolve, reject) => {
+const convertBlobToBase64 = (blob: Blob): Promise<string> =>
+  new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onloadend = () => {
       resolve(reader.result as string);
@@ -28,4 +29,3 @@ const convertBlobToBase64 = (blob: Blob): Promise<string> => {
     reader.onerror = reject;
     reader.readAsDataURL(blob);
   });
-};

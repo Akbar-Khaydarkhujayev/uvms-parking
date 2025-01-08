@@ -1,8 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+
 import axiosInstance, { endpoints } from 'src/utils/axios';
-import { toast } from 'src/components/snackbar';
+
 import { useTranslate } from 'src/locales';
-import { ICamera } from 'src/sections/devices/api/camera/list';
+
+import { toast } from 'src/components/snackbar';
 
 interface IBody {
   ip: string;
@@ -14,13 +16,12 @@ interface ToggleBarrierParams {
   params: any;
 }
 
-export const toggleBarrier = ({ data, params }: ToggleBarrierParams) => {
-  return axiosInstance
+export const toggleBarrier = ({ data, params }: ToggleBarrierParams) =>
+  axiosInstance
     .post(endpoints.barrier, data, {
       params,
     })
     .then((res) => res.data);
-};
 
 export const useToggleBarrier = () => {
   const queryClient = useQueryClient();

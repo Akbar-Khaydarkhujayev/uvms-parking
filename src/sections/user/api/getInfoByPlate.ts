@@ -1,7 +1,9 @@
-import { useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
+import { useMutation } from '@tanstack/react-query';
+
 import axiosInstance, { endpoints } from 'src/utils/axios';
-import { FormSchemaType } from '../components/formSchema';
+
+import type { FormSchemaType } from '../components/formSchema';
 
 export interface IParkingInfo {
   plate: string;

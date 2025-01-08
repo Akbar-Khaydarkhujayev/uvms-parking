@@ -1,6 +1,7 @@
 import 'src/global.css';
 
 // ----------------------------------------------------------------------
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import { Router } from 'src/routes/sections';
 
@@ -13,9 +14,9 @@ import { MotionLazy } from 'src/components/animate/motion-lazy';
 import { SettingsDrawer, defaultSettings, SettingsProvider } from 'src/components/settings';
 
 import { AuthProvider } from 'src/auth/context/jwt';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { I18nProvider, LocalizationProvider } from './locales';
+
 import { Snackbar } from './components/snackbar';
+import { I18nProvider, LocalizationProvider } from './locales';
 
 // ----------------------------------------------------------------------
 

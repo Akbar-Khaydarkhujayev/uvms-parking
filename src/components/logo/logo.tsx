@@ -212,6 +212,7 @@ export const Logo = forwardRef<HTMLDivElement, LogoProps>(
         }}
         {...other}
       >
+        AA
         {isSingle ? singleLogo : fullLogo}
       </Box>
     );

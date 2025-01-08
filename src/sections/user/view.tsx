@@ -1,18 +1,18 @@
-import { Button, Divider, Typography } from '@mui/material';
-import Box from '@mui/material/Box';
-import { useForm } from 'react-hook-form';
-import { Field, Form } from 'src/components/hook-form';
-import { useTranslate } from 'src/locales';
-import { FormSchema, FormSchemaType } from './components/formSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoadingButton } from '@mui/lab';
-import { IParkingInfo, useGetParkingInfo } from './api/getInfoByPlate';
+import { Button, Divider, Typography } from '@mui/material';
+import Box from '@mui/material/Box';
+import dayjs from 'dayjs';
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { AnimateLogo2 } from 'src/components/animate';
-import { usePay } from './api/pay';
-import dayjs from 'dayjs';
+import { Field, Form } from 'src/components/hook-form';
+import { useTranslate } from 'src/locales';
 import { formatCurrency } from 'src/utils/format-number';
+import { IParkingInfo, useGetParkingInfo } from './api/getInfoByPlate';
+import { usePay } from './api/pay';
+import { FormSchema, FormSchemaType } from './components/formSchema';
 
 // ----------------------------------------------------------------------
 

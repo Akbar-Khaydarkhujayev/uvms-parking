@@ -1,5 +1,10 @@
 import Stack from '@mui/material/Stack';
+import { Box, Button } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
+
+import { Iconify } from 'src/components/iconify';
+
+import { useAuthContext } from 'src/auth/hooks';
 
 import { NavList } from './nav-list';
 import { NavUl, NavLi } from '../styles';
@@ -8,9 +13,6 @@ import { navSectionClasses } from '../classes';
 import { navSectionCssVars } from '../css-vars';
 
 import type { NavGroupProps, NavSectionProps } from '../types';
-import { Box, Button } from '@mui/material';
-import { useAuthContext } from 'src/auth/hooks';
-import { Iconify } from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 

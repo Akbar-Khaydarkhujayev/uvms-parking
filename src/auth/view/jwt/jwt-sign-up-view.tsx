@@ -17,12 +17,8 @@ import { Iconify } from 'src/components/iconify';
 import { AnimateLogo2 } from 'src/components/animate';
 import { Form, Field } from 'src/components/hook-form';
 
-import { FormHead } from 'src/auth/components/form-head';
-import { FormSocials } from 'src/auth/components/form-socials';
-import { FormDivider } from 'src/auth/components/form-divider';
-import { SignUpTerms } from 'src/auth/components/sign-up-terms';
 import { useSignUp } from 'src/auth/api/signUp';
-import { useEffect } from 'react';
+import { FormHead } from 'src/auth/components/form-head';
 
 // ----------------------------------------------------------------------
 

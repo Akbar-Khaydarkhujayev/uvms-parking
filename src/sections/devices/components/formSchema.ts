@@ -32,7 +32,7 @@ export const CameraFormSchema = z.object({
     .string()
     .min(1, { message: 'Port is required!' })
     .regex(/^([0-9]{1,5})$/, { message: 'Invalid port number!' })
-    .refine((val) => parseInt(val) >= 0 && parseInt(val) <= 65535, {
+    .refine((val) => parseInt(val, 10) >= 0 && parseInt(val, 10) <= 65535, {
       message: 'Port must be between 0 and 65535!',
     }),
   username: z.string().min(1, { message: 'Username is required!' }),

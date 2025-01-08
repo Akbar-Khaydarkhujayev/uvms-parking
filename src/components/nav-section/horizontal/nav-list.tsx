@@ -9,13 +9,13 @@ import { isExternalLink } from 'src/routes/utils';
 import { useActiveLink } from 'src/routes/hooks/use-active-link';
 
 import { paper } from 'src/theme/styles';
+import { useTranslate } from 'src/locales';
 
 import { NavItem } from './nav-item';
 import { NavUl, NavLi } from '../styles';
 import { navSectionClasses } from '../classes';
 
 import type { NavListProps, NavSubListProps } from '../types';
-import { useTranslate } from 'src/locales';
 
 // ----------------------------------------------------------------------
 

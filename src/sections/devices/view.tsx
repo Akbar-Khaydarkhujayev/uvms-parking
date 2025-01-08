@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react';
+
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import Divider from '@mui/material/Divider';
@@ -7,29 +9,33 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import TableBody from '@mui/material/TableBody';
 import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import { Stack, Button, TextField, Pagination, Typography } from '@mui/material';
+
+import { useBoolean } from 'src/hooks/use-boolean';
+import { useDebounce } from 'src/hooks/use-debounce';
 
 import { fDate } from 'src/utils/format-time';
 
-import { Iconify } from 'src/components/iconify';
-import { TableHeadCustom, TableNoData } from 'src/components/table';
-import { usePopover, CustomPopover } from 'src/components/custom-popover';
-import { DashboardContent } from 'src/layouts/dashboard';
-import { Button, Pagination, Stack, TextField, Typography } from '@mui/material';
-
-import { useDebounce } from 'src/hooks/use-debounce';
 import { useTranslate } from 'src/locales';
-import { IDevice, useGetDevices } from './api/device/getList';
-import { useBoolean } from 'src/hooks/use-boolean';
-import { DeviceDialog } from './components/DeviceDialog';
-import { useEffect, useState } from 'react';
-import { useDeleteDevice } from './api/device/delete';
-import { ConfirmDialog } from 'src/components/custom-dialog';
-import { Scrollbar } from 'src/components/scrollbar';
+import { DashboardContent } from 'src/layouts/dashboard';
+
 import { Label } from 'src/components/label';
-import InputAdornment from '@mui/material/InputAdornment';
-import { CameraDialog } from './components/CameraDialog';
-import { ICamera, useGetCameras } from './api/camera/list';
+import { Iconify } from 'src/components/iconify';
+import { Scrollbar } from 'src/components/scrollbar';
+import { ConfirmDialog } from 'src/components/custom-dialog';
+import { TableNoData, TableHeadCustom } from 'src/components/table';
+import { usePopover, CustomPopover } from 'src/components/custom-popover';
+
+import { useGetCameras } from './api/camera/list';
+import { useGetDevices } from './api/device/getList';
 import { useDeleteCamera } from './api/camera/delete';
+import { useDeleteDevice } from './api/device/delete';
+import { CameraDialog } from './components/CameraDialog';
+import { DeviceDialog } from './components/DeviceDialog';
+
+import type { ICamera } from './api/camera/list';
+import type { IDevice } from './api/device/getList';
 
 // ----------------------------------------------------------------------
 
@@ -162,10 +168,10 @@ export function DevicesView() {
                 <TableHeadCustom headLabel={deviceHeadLabel} />
 
                 <TableBody>
-                  {devices?.data.map((device, index) => (
+                  {devices?.data.map((item, index) => (
                     <DeviceRowItem
-                      key={device.id}
-                      row={device}
+                      key={item.id}
+                      row={item}
                       order={index + 1}
                       deviceId={chosenDevice?.device_ID}
                       setDevice={setDevice}
@@ -269,10 +275,10 @@ export function DevicesView() {
                 <TableHeadCustom headLabel={CamerasTableHead} />
 
                 <TableBody>
-                  {cameras?.map((camera, index) => (
+                  {cameras?.map((item, index) => (
                     <CameraRowItem
-                      key={camera.id}
-                      row={camera}
+                      key={item.id}
+                      row={item}
                       order={index + 1}
                       setCamera={setCamera}
                       deleteMutation={deleteCameraMutation}
