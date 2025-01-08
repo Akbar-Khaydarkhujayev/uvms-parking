@@ -78,7 +78,7 @@ export function CameraDialog({ onClose, open, device_id, camera, setCamera }: IC
 
   return (
     <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
-      <DialogTitle>{t('add camera')}</DialogTitle>
+      <DialogTitle>{camera?.id ? t('edit camera') : t('add camera')}</DialogTitle>
 
       <Form methods={methods} onSubmit={onSubmit}>
         <DialogContent>

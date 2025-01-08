@@ -74,7 +74,7 @@ export function DeviceDialog({ onClose, open, device, setDevice }: ICompanyDialo
 
   return (
     <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
-      <DialogTitle>{t('create device')}</DialogTitle>
+      <DialogTitle>{device?.device_ID ? t('edit device') : t('create device')}</DialogTitle>
 
       <Form methods={methods} onSubmit={onSubmit}>
         <DialogContent>

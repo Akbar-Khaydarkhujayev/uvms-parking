@@ -363,8 +363,8 @@ function DeviceRowItem({
       >
         <TableCell sx={{ cursor: 'pointer', color: 'text.primary.main' }}>{order}</TableCell>
         <TableCell>{row.device_Name}</TableCell>
-        <TableCell>{row.userName}</TableCell>
-        <TableCell>{row.password}</TableCell>
+        <TableCell align={row.userName ? 'left' : 'center'}>{row.userName ?? '-'}</TableCell>
+        <TableCell align={row.userName ? 'left' : 'center'}>{row.password ?? ' - '}</TableCell>
         <TableCell>{fDate(row.created_At)}</TableCell>
         <TableCell align="center">
           {row.status}
@@ -457,8 +457,8 @@ function CameraRowItem({
         <TableCell sx={{ cursor: 'pointer', color: 'text.primary.main' }}>{order}</TableCell>
         <TableCell>{row.ip}</TableCell>
         <TableCell>{row.port}</TableCell>
-        <TableCell>{row.username}</TableCell>
-        <TableCell>{row.password}</TableCell>
+        <TableCell>{row.username ?? ' - '}</TableCell>
+        <TableCell>{row.password ?? ' - '}</TableCell>
         <TableCell>
           {t(directions.find((direction) => direction.value === row.direction)?.label || '')}
         </TableCell>

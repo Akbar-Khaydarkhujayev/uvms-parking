@@ -15,18 +15,16 @@ import {
 import { Scrollbar } from 'src/components/scrollbar';
 import { TableHeadCustom, TableNoData } from 'src/components/table';
 import { Label } from 'src/components/label';
-import notFoundImg from 'src/assets/images/not-fount.png';
 import { useGetRecords } from './api/getRecords';
 import dayjs from 'dayjs';
 import { useGetStats } from './api/getStats';
 import { useGetDevices } from '../devices/api/device/getList';
 import { useGetCameras } from '../devices/api/camera/list';
 import { useToggleBarrier } from './api/toggleBarrier';
-import img from './plate.jpg';
-import img1 from './car.jpg';
 import useWebSocket from 'src/hooks/use-web-socket';
 import { useAuthContext } from 'src/auth/hooks';
 import { formatCurrency } from 'src/utils/format-number';
+import { CONFIG } from 'src/config-global';
 
 // ----------------------------------------------------------------------
 
@@ -168,7 +166,7 @@ export function MonitoringView() {
                     {t('barrier')} 1
                   </Typography>
                 </Grid>
-                <Grid item container xs={12} spacing={1}>
+                <Grid item container xs={12} spacing={1} height={0.47}>
                   {cameras
                     ?.filter((camera) => camera.barier_ID === 1 && camera.direction === 1)
                     .map((camera) => (
@@ -212,7 +210,7 @@ export function MonitoringView() {
                       </>
                     ))}
                 </Grid>
-                <Grid item container xs={12} spacing={1}>
+                <Grid item container xs={12} spacing={1} height={0.47}>
                   {cameras
                     ?.filter((camera) => camera.barier_ID === 2 && camera.direction === 1)
                     .map((camera) => (
@@ -263,7 +261,7 @@ export function MonitoringView() {
                     {t('barrier')} 2
                   </Typography>
                 </Grid>
-                <Grid item container xs={12} spacing={1}>
+                <Grid item container xs={12} spacing={1} height={0.47}>
                   {cameras
                     ?.filter((camera) => camera.barier_ID === 1 && camera.direction === 2)
                     .map((camera) => (
@@ -307,7 +305,7 @@ export function MonitoringView() {
                       </>
                     ))}
                 </Grid>
-                <Grid item container xs={12} spacing={1}>
+                <Grid item container xs={12} spacing={1} height={0.47}>
                   {cameras
                     ?.filter((camera) => camera.barier_ID === 2 && camera.direction === 2)
                     .map((camera) => (
@@ -368,8 +366,8 @@ export function MonitoringView() {
                   }}
                 >
                   <Typography textAlign="center" fontWeight="bold">
-                    {t('barrier')} {item?.Barier_ID} | {t('direction')}:{' '}
-                    {t(directions[item?.Direction ?? 1])}
+                    {t('barrier')} {index < 2 ? 1 : 2} | {t('direction')}:{' '}
+                    {t(directions[index % 2 ? 2 : 1])}
                   </Typography>
                   {!item ? (
                     <Box
@@ -379,11 +377,13 @@ export function MonitoringView() {
                         borderTopLeftRadius: 10,
                         borderTopRightRadius: 10,
                         overflow: 'hidden',
+                        borderRadius: 2,
+                        border: (theme) => `solid 2px ${theme.palette.divider}`,
                       }}
                     >
                       <Avatar
                         variant="square"
-                        src={notFoundImg}
+                        src={`${CONFIG.assetsDir}/logo/fulllogo_transparent.png`}
                         style={{
                           width: '100%',
                           height: '100%',
