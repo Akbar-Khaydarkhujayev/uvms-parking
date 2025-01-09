@@ -3,6 +3,7 @@ import type { Theme, SxProps, Breakpoint } from '@mui/material/styles';
 
 import Box from '@mui/material/Box';
 import Alert from '@mui/material/Alert';
+import { Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { iconButtonClasses } from '@mui/material/IconButton';
 
@@ -137,6 +138,9 @@ export function DashboardLayout({ sx, children, header, data }: DashboardLayoutP
                     sx={{ [theme.breakpoints.up(layoutQuery)]: { display: 'flex' } }}
                   />
                 )}
+                <Typography fontWeight={700} fontSize={20}>
+                  UVMS Soft
+                </Typography>
                 {/* -- Workspace popover -- */}
                 {/* <WorkspacesPopover
                   data={_workspaces}
